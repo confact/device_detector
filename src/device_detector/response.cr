@@ -105,6 +105,14 @@ module DeviceDetector
     def mobile_device_model
       mobile.model
     end
+    
+    def device_type
+      if mobile_device?
+        mobile.type
+      else
+        "desktop"
+      end
+    end
 
     # `to.click` related method
     def traffic_type
