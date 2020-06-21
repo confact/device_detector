@@ -9,20 +9,20 @@ module DeviceDetector::Parser
       @user_agent = user_agent
     end
 
-    struct SingleModelPlayer
-      YAML.mapping(
-        regex: String,
-        device: String?,
-        model: String
-      )
+    class SingleModelPlayer
+      include YAML::Serializable
+
+      property regex : String
+      property device : String?
+      property model : String
     end
 
-    struct MultiModelPlayer
-      YAML.mapping(
-        regex: String,
-        device: {type: String, presence: true},
-        models: Array(SingleModelPlayer)
-      )
+    class MultiModelPlayer
+      include YAML::Serializable
+
+      property regex : String
+      property device : String?
+      property models : Array(SingleModelPlayer)
     end
 
     def media_players

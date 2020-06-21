@@ -7,11 +7,11 @@ module DeviceDetector::Parser
       @user_agent = user_agent
     end
 
-    struct Engine
-      YAML.mapping(
-        regex: String,
-        name: String
-      )
+    class Engine
+      include YAML::Serializable
+
+      property regex : String
+      property name : String
     end
 
     def engines

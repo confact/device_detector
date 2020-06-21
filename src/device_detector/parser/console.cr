@@ -9,20 +9,20 @@ module DeviceDetector::Parser
       @user_agent = user_agent
     end
 
-    struct SingleModelConsole
-      YAML.mapping(
-        regex: String,
-        device: String?,
-        model: String
-      )
+    class SingleModelConsole
+      include YAML::Serializable
+
+      property regex : String
+      property device : String?
+      property model : String
     end
 
-    struct MultiModelConsole
-      YAML.mapping(
-        regex: String,
-        device: String,
-        models: Array(SingleModelConsole)
-      )
+    class MultiModelConsole
+      include YAML::Serializable
+
+      property regex : String
+      property device : String?
+      property models : Array(SingleModelConsole)
     end
 
     def consoles

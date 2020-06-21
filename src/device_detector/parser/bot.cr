@@ -7,12 +7,12 @@ module DeviceDetector::Parser
       @user_agent = user_agent
     end
 
-    struct Bot
-      YAML.mapping(
-        regex: String,
-        name: String,
-        category: {type: String, nilable: true, presence: true},
-      )
+    class Bot
+      include YAML::Serializable
+
+      property regex : String
+      property name : String
+      property category : String?
     end
 
     def bots

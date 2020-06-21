@@ -9,12 +9,12 @@ module DeviceDetector::Parser
       @user_agent = user_agent
     end
 
-    struct Library
-      YAML.mapping(
-        regex: String,
-        name: String,
-        version: String
-      )
+    class Library
+      include YAML::Serializable
+
+      property regex : String
+      property name : String
+      property version : String
     end
 
     def libraries

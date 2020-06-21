@@ -9,12 +9,12 @@ module DeviceDetector::Parser
       @user_agent = user_agent
     end
 
-    struct SingleModelBrowser
-      YAML.mapping(
-        regex: String,
-        device: String,
-        model: String
-      )
+    class SingleModelBrowser
+      include YAML::Serializable
+
+      property regex : String
+      property device : String
+      property model : String
     end
 
     def car_browsers

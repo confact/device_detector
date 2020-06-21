@@ -9,16 +9,12 @@ module DeviceDetector::Parser
       @user_agent = user_agent
     end
 
-    struct Browser
-      YAML.mapping(
-        regex: String,
-        name: String,
-        version: {
-          type:     (String | Int32 | Float32),
-          nilable:  true,
-          presence: true,
-        }
-      )
+    class Browser
+      include YAML::Serializable
+
+      property regex : String
+      property name : String
+      property version : String | Int32 | Float32?
     end
 
     def browsers
@@ -31,7 +27,7 @@ module DeviceDetector::Parser
       browsers.reverse_each do |browser|
         if Regex.new(browser.regex, Setting::REGEX_OPTS) =~ @user_agent
           detected_browser.merge!({"name" => browser.name})
-          if browser.version_present?
+          unless browser.version.nil?
             if capture_groups?(browser.version.to_s)
               version = fill_groups(browser.version.to_s, browser.regex, @user_agent)
               detected_browser.merge!({"version" => version})

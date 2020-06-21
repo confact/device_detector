@@ -9,18 +9,18 @@ module DeviceDetector::Parser
       @user_agent = user_agent
     end
 
-    struct SingleModelTV
-      YAML.mapping(
-        regex: String,
-        model: String
-      )
+    class SingleModelTV
+      include YAML::Serializable
+
+      property regex : String
+      property model : String
     end
 
-    struct MultiModelTV
-      YAML.mapping(
-        regex: String,
-        models: Array(SingleModelTV)
-      )
+    class MultiModelTV
+      include YAML::Serializable
+
+      property regex : String
+      property models : Array(SingleModelTV)
     end
 
     def tvs

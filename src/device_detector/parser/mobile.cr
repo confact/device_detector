@@ -9,20 +9,26 @@ module DeviceDetector::Parser
       @user_agent = user_agent
     end
 
-    struct SingleModelMobile
-      YAML.mapping(
-        regex: String,
-        type: {type: String?, key: "device", presence: true},
-        model: String
-      )
+    class SingleModelMobile
+      include YAML::Serializable
+
+      property regex : String
+
+      @[YAML::Field(key: "device")]
+      property type : String?
+
+      property model : String
     end
 
-    struct MultiModelMobile
-      YAML.mapping(
-        regex: String,
-        type: {type: String?, key: "device", presence: true},
-        models: Array(SingleModelMobile)
-      )
+    class MultiModelMobile
+      include YAML::Serializable
+
+      property regex : String
+
+      @[YAML::Field(key: "device")]
+      property type : String?
+
+      property models : Array(SingleModelMobile)
     end
 
     def mobiles
